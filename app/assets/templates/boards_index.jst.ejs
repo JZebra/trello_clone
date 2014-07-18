@@ -3,7 +3,7 @@
 <ul class="boards">
   <% collection.each( function (board)  { %>
     <li>
-      <%= board.escape("title") %>  
+      <a href="#/boards/<%= board.escape('id') %>"><%= board.escape("title") %></a>
     </li>
   <% }); %>
 </ul>
