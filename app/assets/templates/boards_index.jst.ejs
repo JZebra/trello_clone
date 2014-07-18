@@ -1,0 +1,14 @@
+<h2>Your Boards</h2>
+
+<ul class="boards">
+  <% collection.each( function (board)  { %>
+    <li>
+      <%= board.escape("title") %>  
+    </li>
+  <% }); %>
+</ul>
+
+
+
+<div class="board-new"></div>
+
