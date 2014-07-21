@@ -1,14 +1,13 @@
 <h2>Your Boards</h2>
 
 <ul class="boards">
-  <% collection.each( function (board)  { %>
+  <% collection.each( function (board) { %>
     <li>
       <a href="#/boards/<%= board.escape('id') %>"><%= board.escape("title") %></a>
     </li>
+    <button class="delete">Delete board</button>
   <% }); %>
 </ul>
-
-
 
 <div class="board-new"></div>
 

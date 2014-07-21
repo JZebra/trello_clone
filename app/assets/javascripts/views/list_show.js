@@ -1,11 +1,12 @@
 TrelloClone.Views.List = Backbone.CompositeView.extend({
   template: function () {
-    return this.open ? JST['list_edit'] : JST["list_show"];
+    return this.open ? JST['edit_list'] : JST["list_show"];
   },
   
   events: {
     "dblclick h3" : "beginEditing",
-    "submit form" : "endEditing"
+    "submit form" : "endEditing",
+    "click button.delete" : "destroyList"
   },
   
   initialize: function (options) {
@@ -26,6 +27,11 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
     this.model.save();
     
     this.render();
+  },
+  
+  destroyList: function (event) {
+    event.preventDefault();
+    this.model.destroy();
   },
   
   render: function () {
