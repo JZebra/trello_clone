@@ -1,0 +1,16 @@
+<form class="new-card-form" role="form">
+  <div class="form-group">
+    <label for="card_title"><%= card.escape("title") %></label>
+    <input 
+      class="form-control"
+      type="text" 
+      name="card[title]"
+      placeholder="Add a card..."
+      id="card_title">
+  </div>
+  <button
+    type='submit'
+    class='btn btn-success'>
+    Save
+  </button>
+</form>

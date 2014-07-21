@@ -13,6 +13,7 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'sqlite3'
 gem 'uglifier', '>= 1.3.0'
 gem 'serialize_json-rails'
+gem 'jquery-ui-rails'
 
 group :doc do
   gem 'sdoc', require: false

@@ -1,0 +1,12 @@
+<form id="edit-list-form" class='form' role='form'>
+  <div id='list-title'>
+    <label for="list_title"></label>
+    <input 
+      class='form-control'
+      type="text" 
+      name="list[title]"
+      placeholder="<%= list.escape('title') %>"
+      id="list_title">
+  </div>
+    <button type="submit" value="Save" class='btn btn-success'></button>
+</form>

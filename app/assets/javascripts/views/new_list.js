@@ -1,12 +1,12 @@
 TrelloClone.Views.NewList = Backbone.View.extend({
-  template: JST['new_list'],
+  template: JST['list/list_new'],
   
   events: {
     "submit form" : "createList"
   },
   
   initialize: function (options) {
-    this.board_id = options.board_id;
+    this.board = options.board;
   },
   
   render: function() {
@@ -16,14 +16,20 @@ TrelloClone.Views.NewList = Backbone.View.extend({
   },
   
   createList: function (event) {
-    var view = this;
     event.preventDefault();
-    
+    var view = this;
+
     var params = $(event.target).serializeJSON();
     var list = new TrelloClone.Models.List(params["list"]);
-    list.set("board_id", this.board_id);
-    list.save();
-    TrelloClone.Collections.lists.add(list);
+    list.set("board_id", this.board.id);
+    list.save({},{
+      success: function(){
+        view.board.lists().add(list);
+      },
+      error: function(){
+      },
+    });
+
   }
   
 });
