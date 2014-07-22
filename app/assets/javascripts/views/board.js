@@ -4,7 +4,8 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
   events: {
     "click button#delete_board" : "destroyBoard",
     "dblclick h3" : "beginEditing",
-    "submit form" : "endEditing"
+    "submit form" : "endEditing",
+    "sortstop"    : "changeOrder"
   },
   
   initialize: function () {
@@ -15,6 +16,8 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     
     var newListView = new TrelloClone.Views.NewList({board: this.model});
     this.addSubview(".list-new", newListView);
+    
+    this.model.lists().each(this.addList.bind(this));
   },
   
   addList: function (list) {
@@ -40,10 +43,31 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     // callback redirects to index
   },
   
+  changeCardOrder: function (event, ui) {
+    event.preventDefault();
+    debugger;
+    // data-id = card id
+    // change list order in board, change card order in list
+    // add class to individual card els (currently col-sm-6)
+    // this.$("added class").each( function (index, el) {
+      //      get data-id of el 
+      //      list show view has a model and method .cards() 
+      //      if model.ord != index....
+      //       set and save if they are diff
+      //      })
+    
+  },
+  
   render: function () {
     var renderedContent = this.template({model: this.model});
     this.$el.html(renderedContent);
     this.attachSubviews();
+
+    $('.cards').sortable({
+      connectWith: '.cards'
+      // listen for sortStop in events hash
+      //
+    });
     return this;
     
   }  
