@@ -23,6 +23,12 @@ $blue-dark: #34495e;
 $blue-light: #cef;
 $gray-soft: #ecf0f1;
 
+$light-purple: #C0A0D4;
+$dark-purple: #6F3787;
+$green: #41A175;
+$sage: #3E8765;
+$clouds: #ecf0f1;
+
 //.board-tile {
 //  background: $blue;
 //  color: #ffffff;
@@ -30,6 +36,20 @@ $gray-soft: #ecf0f1;
 //  width: 23%;
 //  margin: 5px;
 //}
+
+#main {
+  background-color: $light-purple;
+}
+
+.list {
+  background-color: $clouds;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.card {
+  background-color: white;
+}
 
 .board-clickable {
   color: white;

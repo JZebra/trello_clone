@@ -2,6 +2,7 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
   template: function () {
     return this.open ? JST['list/list_edit'] : JST['list/list_show'];
   },
+  className: "list col-sm-3",
   
   events: {
     "click button#delete_list" : "destroyList",

@@ -11,7 +11,7 @@
 #
 
 class Item < ActiveRecord::Base
-  validates :title, :card, presence: true
+  validates :title, :card_id, presence: true
 
   belongs_to :card
 end
