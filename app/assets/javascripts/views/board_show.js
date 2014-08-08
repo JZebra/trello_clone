@@ -5,8 +5,7 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     "click button#delete_board"  : "destroyBoard",
     "dblclick h3"                : "beginEditing",
     "submit form"                : "endEditing",
-    "click .card"                : 'openModal',
-    "sortstop"                   : "changeOrder"
+    "sortstop"                   : "changeListOrder"
   },
   
   initialize: function () {
@@ -44,7 +43,7 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     // callback redirects to index
   },
   
-  changeCardOrder: function (event, ui) {
+  changeListOrder: function (event, ui) {
     event.preventDefault();
     debugger;
     // data-id = card id
@@ -64,13 +63,12 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     this.$el.html(renderedContent);
     this.attachSubviews();
 
-    $('.cards').sortable({
-      connectWith: '.cards'
+    $('.lists').sortable({
+      connectWith: '.lists'
       // listen for sortStop in events hash
       //
     });
     
     return this;
-    
   }  
 });
