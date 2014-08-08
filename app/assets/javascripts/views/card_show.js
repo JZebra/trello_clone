@@ -5,14 +5,12 @@ TrelloClone.Views.Card = Backbone.CompositeView.extend({
   
   className: "card col-sm-12",
   
-  events: {
-  },
-  
   initialize: function (options) {
     this.open = false;
   },
-  
-  beginEditing: function () {
+
+  beginEditing: function (event) {
+    event.preventDefault();
     this.open = true;
     this.render();
   },
@@ -36,6 +34,8 @@ TrelloClone.Views.Card = Backbone.CompositeView.extend({
   render: function () {
     var renderedContent = this.template()({ card: this.model });
     this.$el.html(renderedContent);
+    // set the data-id of the card so we can fetch it when we need to open the edit modal.
+    this.$el.attr("data-id", this.model.id )    
     return this;
   }
 });

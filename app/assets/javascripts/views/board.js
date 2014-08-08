@@ -2,10 +2,11 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
   template: JST["board/board_show"],
   
   events: {
-    "click button#delete_board" : "destroyBoard",
-    "dblclick h3" : "beginEditing",
-    "submit form" : "endEditing",
-    "sortstop"    : "changeOrder"
+    "click button#delete_board"  : "destroyBoard",
+    "dblclick h3"                : "beginEditing",
+    "submit form"                : "endEditing",
+    "click .card"                : 'openModal',
+    "sortstop"                   : "changeOrder"
   },
   
   initialize: function () {
@@ -68,6 +69,7 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
       // listen for sortStop in events hash
       //
     });
+    
     return this;
     
   }  

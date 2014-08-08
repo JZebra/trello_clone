@@ -28,6 +28,7 @@ $dark-purple: #6F3787;
 $green: #41A175;
 $sage: #3E8765;
 $clouds: #ecf0f1;
+$highlighted: #B4C2D4;
 
 //.board-tile {
 //  background: $blue;
@@ -49,6 +50,20 @@ $clouds: #ecf0f1;
 
 .card {
   background-color: white;
+  span {
+    display: none;
+  }
+  &:hover {
+    background: aliceblue;
+    span {
+      display: inline;
+      color: $dark-purple;
+    }
+  }
+}
+
+.highlighted {
+  background-color: $highlighted;
 }
 
 .board-clickable {
