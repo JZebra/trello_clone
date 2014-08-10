@@ -6,7 +6,7 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
   
   events: {
     "click button#delete_list" : "destroyList",
-    "click .card"                : 'openModal',
+    "click .card"              : 'openModal',
     // "click .glyphicon-remove"  : "removeCard"
     
   },
@@ -59,8 +59,8 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
   openModal: function (event) {
     event.preventDefault();
     var id = $(event.target).attr('data-id');
-    debugger;
-    var editModal = new TrelloClone.Views.CardModal({ id: id });
+    var card = this.model.cards().get(id)
+    var editModal = new TrelloClone.Views.CardModal({ model: card });
     this.addSubview(".edit-modal", editModal)
   },
   

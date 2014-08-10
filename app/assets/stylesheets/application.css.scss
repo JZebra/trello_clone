@@ -38,8 +38,18 @@ $highlighted: #B4C2D4;
 //  margin: 5px;
 //}
 
-#main {
+body {
   background-color: $light-purple;
+}
+
+.navbar-default {
+  background-color: $green;
+  border-color: $green;
+  .navbar-header {
+    .navbar-brand{
+      color: $clouds;
+    }
+  }
 }
 
 .list {

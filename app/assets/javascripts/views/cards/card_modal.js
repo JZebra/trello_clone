@@ -7,8 +7,8 @@ TrelloClone.Views.CardModal = Backbone.View.extend({
   
   className: "edit-card-modal",
   
-  initialize: function (options) {
-    this.model = TrelloClone.Collections.cards.getOrFetch(options.id)
+  initialize: function () {
+    this.listenTo(this.model, 'sync', this.render)
   },
   
   render: function() {
