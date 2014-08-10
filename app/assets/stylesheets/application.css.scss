@@ -23,12 +23,15 @@ $blue-dark: #34495e;
 $blue-light: #cef;
 $gray-soft: #ecf0f1;
 
+$lavender: #C2B9EB;
+$forest: #769E75;
 $light-purple: #C0A0D4;
-$dark-purple: #6F3787;
+$dark-purple: #793C94;
 $green: #41A175;
 $sage: #3E8765;
 $clouds: #ecf0f1;
 $highlighted: #B4C2D4;
+$asbestos: #7f8c8d;
 
 //.board-tile {
 //  background: $blue;
@@ -39,12 +42,16 @@ $highlighted: #B4C2D4;
 //}
 
 body {
-  background-color: $light-purple;
+  background-color: $lavender;
+}
+
+div {
+  border-radius: 3px; 
 }
 
 .navbar-default {
-  background-color: $green;
-  border-color: $green;
+  background-color: $dark-purple;
+  border-color: $dark-purple;
   .navbar-header {
     .navbar-brand{
       color: $clouds;
@@ -70,6 +77,17 @@ body {
       color: $dark-purple;
     }
   }
+}
+
+.btn {
+  margin: 3px 0;
+}
+
+#new-list-form {
+  background-color: $clouds;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 3px;
 }
 
 .highlighted {
@@ -98,7 +116,7 @@ body {
 .card {
   font-size: 14px;
   background: white;
-  color: $blue-med;
+  color: $asbestos;
   padding: 5px 5px;
   margin: 5px 0px;
 }
@@ -121,22 +139,3 @@ body {
   };
 }
 
-.form {
-  background: $blue-light;
-  padding: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px; /* future proofing */
-  -khtml-border-radius: 5px; /* for old Konqueror browsers */
-}
-
-.new-card-form {
-  
-}
-
-div {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px; /* future proofing */
-  -khtml-border-radius: 5px; /* for old Konqueror browsers */
-}
