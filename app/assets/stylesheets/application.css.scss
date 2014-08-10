@@ -16,13 +16,7 @@
 @import "bootstrap";
 @import "font-awesome";
 
-
 $blue: #2980b9;
-$blue-med: #3390c9;
-$blue-dark: #34495e;
-$blue-light: #cef;
-$gray-soft: #ecf0f1;
-
 $lavender: #C2B9EB;
 $forest: #769E75;
 $light-purple: #C0A0D4;
@@ -32,14 +26,6 @@ $sage: #3E8765;
 $clouds: #ecf0f1;
 $highlighted: #B4C2D4;
 $asbestos: #7f8c8d;
-
-//.board-tile {
-//  background: $blue;
-//  color: #ffffff;
-//  height: 100px;
-//  width: 23%;
-//  margin: 5px;
-//}
 
 body {
   background-color: $lavender;
@@ -57,25 +43,8 @@ div {
       color: $clouds;
     }
   }
-}
-
-.list {
-  background-color: $clouds;
-  padding: 1rem;
-  margin: 1rem;
-}
-
-.card {
-  background-color: white;
-  span {
-    display: none;
-  }
-  &:hover {
-    background: aliceblue;
-    span {
-      display: inline;
-      color: $dark-purple;
-    }
+  .btn {
+    margin-top: .8rem;
   }
 }
 
@@ -83,59 +52,6 @@ div {
   margin: 3px 0;
 }
 
-#new-list-form {
-  background-color: $clouds;
-  padding: 1rem;
-  margin: 1rem;
-  border-radius: 3px;
+.form-control {
+  margin: 0 0 4px 0;
 }
-
-.highlighted {
-  background-color: $highlighted;
-}
-
-.board-clickable {
-  color: white;
-  width: 100%;
-  height: 90px;
-  width: 100%;
-  text-align: center;
-}
-
-.delete {
-  margin: 0px;
-  padding: 1px;
-  float: right;
-  color: #4499cc;
-  :hover{
-    font-size: 108%;
-    color: white;
-  };
-}
-
-.card {
-  font-size: 14px;
-  background: white;
-  color: $asbestos;
-  padding: 5px 5px;
-  margin: 5px 0px;
-}
-
-.card-title {
- margin: 0px 5px; 
- padding: 0;
-}
-
-.card-delete {
-  margin: 0px;
-  padding: 1px;
-  float: right;
-  color: #eef;
-  font-size: 90%;
-  height: 10px;
-  :hover{
-    font-size: 100%;
-    color: $blue;
-  };
-}
-

@@ -1,0 +1,24 @@
+$blue: #2980b9;
+$lavender: #C2B9EB;
+$forest: #769E75;
+$light-purple: #C0A0D4;
+$dark-purple: #793C94;
+$green: #41A175;
+$sage: #3E8765;
+$clouds: #ecf0f1;
+$highlighted: #B4C2D4;
+$asbestos: #7f8c8d;
+
+.board-tile {
+  background: $dark-purple;
+  color: $clouds;
+  height: 105px;
+  margin: 5px;
+  button {
+    margin-top: 20%;
+    margin-left: 84%;
+    color: $clouds;
+    border: none;
+    background: $dark-purple;
+  }
+}

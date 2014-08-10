@@ -19,6 +19,7 @@ TrelloClone.Routers.AppRouter = Backbone.Router.extend({
   
   boardShow: function (id) {
     var board = TrelloClone.Collections.boards.getOrFetch(id);
+    // how does this not break? This view doesn't exist
     var boardView = new TrelloClone.Views.Board({ model: board });
   
     this._swapView(boardView);

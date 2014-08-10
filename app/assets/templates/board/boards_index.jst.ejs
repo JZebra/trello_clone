@@ -1,13 +1,21 @@
-<h2 class="col-sm-12">My Boards</h2>
+<h2>My Boards</h2>
 
-<ul class="boards">
-  <% collection.each( function (board) { %>
-    <li>
-      <a href="#/boards/<%= board.escape('id') %>"><%= board.escape("title") %></a>
-    </li>
-    <button id="delete_board" data-id='<%= board.id %>'>Delete board</button>
-  <% }); %>
-</ul>
+<div class="tile-container">
+  <div class="board-tiles row">
+    <% collection.each( function (board) { %>
+      <a href="#/boards/<%= board.escape('id') %>">
+        <div class="board-tile col-sm-3">
+          <h4><%= board.escape("title") %></h4>
+          <button 
+          class="btn btn-default" 
+          id="delete_board" 
+          data-id='<%= board.id %>'>
+          <span class='glyphicon glyphicon-trash'></span>
+        </button>
+        </div>
+      </a>
+    <% }); %>
+  </div>
+</div>
 
-<div class="board-new"></div>
-
+<div class="board-new container"></div>
