@@ -2,10 +2,9 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
   template: JST["board/board_show"],
   
   events: {
-    "click button#delete_board"  : "destroyBoard",
     "dblclick h3"                : "beginEditing",
     "submit form"                : "endEditing",
-    "sortstop"                   : "changeListOrder"
+    "sortupdate .lists"          : "updateListOrd"
   },
   
   initialize: function () {
@@ -33,40 +32,76 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     this.render();
   },
   
-  destroyBoard: function (event) {
-    event.preventDefault();
-    this.model.destroy({
-      success: function () {
-        Backbone.history.navigate("", { trigger: true });
+  // Change list order in board
+  updateListOrd: function (event, ui) {
+    var board = this;
+    _.each($('.list'), function (list, index) {
+      var listId = $(list).data('id');
+      var listObj = board.model.lists().get(listId);
+      // if the ord and visible index are different, set and save the list.
+      if (listObj.get('ord') !== index + 1) {
+        listObj.set('ord', index + 1);
+        listObj.save({});
       }
-    });
-    // callback redirects to index
+    })
   },
   
-  changeListOrder: function (event, ui) {
-    event.preventDefault();
-    debugger;
-    // data-id = card id
-    // change list order in board, change card order in list
-    // add class to individual card els (currently col-sm-6)
-    // this.$("added class").each( function (index, el) {
-      //      get data-id of el 
-      //      list show view has a model and method .cards() 
-      //      if model.ord != index....
-      //       set and save if they are diff
-      //      })
-    
-  },
+  // cardsSortable: function () {
+ //    var view = this;
+ //
+ //    this.$(".cards").sortable({
+ //      connectWith: ".cards",
+ //      tolerance: "intersect",
+ //      // placeholder: true,
+ //
+ //      start: function (event, ui) {
+ //        $(ui.item).addClass('dragged');
+ //      },
+ //
+ //      stop: function (event, ui) {
+ //        $(ui.item).removeClass('dragged');
+ //      },
+ //
+ //      update: function (event, ui) {
+ //        var cardDiv = ui.item;
+ //        var newListId = cardDiv.closest('.list').data('id');
+ //        var cardId = cardDiv.data('id');
+ //        var lists = view.model.lists().models;
+ //        var card, oldList, newList;
+ //
+ //        view.model.lists().each( function (list) {
+ //          if (list.cards().get(cardId)) {
+ //            oldList = list;
+ //            card = list.cards().get(cardId);
+ //          }
+ //
+ //          if (list.get('id') === newListId) {
+ //            newList = list;
+ //          }
+ //        });
+ //
+ //        oldList.cards().remove(card, { silent: true });
+ //        newList.cards().add(card, { silent: true });
+ //
+ //        //saves to db then saves to backbone view on success
+ //        card.save({ list_id: newListId } , {
+ //          success: function () {
+ //            view.updateCardOrd(newListId)
+ //          }
+ //        });
+ //      },
+ //    })
+ //  },
+  
   
   render: function () {
     var renderedContent = this.template({model: this.model});
     this.$el.html(renderedContent);
     this.attachSubviews();
-
+    // this.cardsSortable();
     $('.lists').sortable({
-      connectWith: '.lists'
-      // listen for sortStop in events hash
-      //
+      connectWith: '.lists',
+      tolerance: 'intersect'
     });
     
     return this;

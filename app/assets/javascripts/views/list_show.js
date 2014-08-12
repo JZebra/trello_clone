@@ -7,6 +7,7 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
   events: {
     "click button#delete_list" : "destroyList",
     "click .card"              : 'openModal',
+    // "drop .card"               : "drop"
     // "click .glyphicon-remove"  : "removeCard"
     
   },
