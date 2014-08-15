@@ -3,7 +3,7 @@ TrelloClone.Views.Card = Backbone.CompositeView.extend({
     return this.open ? JST['card/card_form'] : JST['card/card_show'];
   },
   
-  className: "card col-sm-12",
+  className: "card",
   
   initialize: function (options) {
     this.open = false;

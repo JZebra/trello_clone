@@ -41,6 +41,7 @@ div {
   .navbar-header {
     .navbar-brand{
       color: $clouds;
+      font-size : 18pt;
     }
   }
   .btn {
@@ -49,9 +50,12 @@ div {
 }
 
 .btn {
-  margin: 3px 0;
+  margin: 3px;
 }
 
 .form-control {
   margin: 0 0 4px 0;
+}
+
+form .sign-up .sign-in {
 }

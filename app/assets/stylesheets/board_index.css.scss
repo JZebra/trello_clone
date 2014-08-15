@@ -10,15 +10,18 @@ $highlighted: #B4C2D4;
 $asbestos: #7f8c8d;
 
 .board-tile {
+  position: relative;
   background: $dark-purple;
   color: $clouds;
   height: 105px;
   margin: 5px;
   button {
-    margin-top: 20%;
-    margin-left: 84%;
+    position: absolute;
+    bottom: 2px;
+    right: 5px;
     color: $clouds;
     border: none;
     background: $dark-purple;
+    }
   }
-}
+

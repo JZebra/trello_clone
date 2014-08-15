@@ -9,11 +9,12 @@ $clouds: #ecf0f1;
 $highlighted: #B4C2D4;
 $asbestos: #7f8c8d;
 
-
 .list {
   background-color: $clouds;
   padding: 1rem;
-  margin: 0 1rem;
+  margin: 1rem;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .card {

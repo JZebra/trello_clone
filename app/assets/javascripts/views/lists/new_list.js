@@ -5,7 +5,7 @@ TrelloClone.Views.NewList = Backbone.View.extend({
   className: "col-sm-3",
   
   events: {
-    "submit form" : "createList"
+    "submit" : "createList"
   },
   
   initialize: function (options) {
@@ -30,6 +30,7 @@ TrelloClone.Views.NewList = Backbone.View.extend({
         view.board.lists().add(list);
       },
       error: function(){
+        console.log("did not save list")
       },
     });
 
