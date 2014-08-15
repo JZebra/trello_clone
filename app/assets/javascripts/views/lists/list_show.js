@@ -8,7 +8,6 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
     "click button#delete_list" : "destroyList",
     "click .card"              : 'openModal',
     "sortupdate .card"         : "updateCardOrd"
-    // "drop .card"               : "drop"
     // "click .glyphicon-remove"  : "removeCard"
     
   },
@@ -61,7 +60,13 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
   makeCardsSortable: function () {
     $('.cards').sortable({
       connectWith: '.cards',
-      tolerance: 'intersect'
+      tolerance: 'intersect',
+      start: function (event, ui) {
+        ui.item.toggleClass('dragged');
+      },
+      stop: function (event, ui) {
+        ui.item.toggleClass('dragged');
+      }
     });
   },
   

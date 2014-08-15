@@ -37,7 +37,13 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
   makeListsSortable: function () {
     $('.lists').sortable({
       connectWith: '.lists',
-      tolerance: 'intersect'
+      tolerance: 'intersect',
+      start: function (event, ui) {
+        ui.item.toggleClass('dragged');
+      },
+      stop: function (event, ui) {
+        ui.item.toggleClass('dragged');
+      }
     });
   },
   

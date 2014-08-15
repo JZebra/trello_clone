@@ -17,6 +17,10 @@ $asbestos: #7f8c8d;
   vertical-align: top;
 }
 
+.dragged {
+  transform: rotate(9deg);
+}
+
 .card {
   background-color: white;
   span {
