@@ -31,22 +31,39 @@ body {
   background-color: $lavender;
 }
 
-div {
-  border-radius: 3px; 
-}
-
 .navbar-default {
   background-color: $dark-purple;
   border-color: $dark-purple;
-  .navbar-header {
-    .navbar-brand{
-      color: $clouds;
-      font-size : 18pt;
+  .navbar-brand {
+    color: $clouds;
+    font-size: 18pt;
+    &:hover, &:focus {
+     color: $highlighted; 
+    };
+  }
+  .navbar-nav {
+    > li {
+      > a {
+        color: $clouds;
+        &:hover, &:focus {
+          color: $highlighted;
+        };
+      }
     }
   }
   .btn {
     margin-top: .8rem;
   }
+  .navbar-link {
+    color: $clouds;
+    &:hover, &:focus{
+      color: $clouds;
+    };
+  }
+}
+
+div {
+  border-radius: 3px; 
 }
 
 .btn {
