@@ -5,7 +5,9 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     "dblclick h3"                : "beginEditing",
     "submit form"                : "endEditing",
     "sortupdate .lists"          : "updateListOrd",
-    // 'sortupdate .cards'          : "updateCardOrd"
+    "sortupdate .cards"          : "updateCardLocation",
+    // "mouseenter .list, .card"    : "showGlyphicon",
+    // "mouseleave .list, .card"    : "hideGlyphicon"
   },
   
   initialize: function () {
@@ -75,71 +77,58 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     var cardId = $(event.toElement).data('id')
     var cardObj = oldListObj.cards().get(cardId)
     
+    // if the card moved lists, delete the entry from the old list and add it to the new one. Else, update the ord in the list. 
     if (newListId !== oldListId) {
-      oldList.cards().remove(cardObj);
-      newList.cards().add(cardObj);
-      
+      // error: cannot read property 'cards' of undefined ??
+      oldListObj.cards().remove(cardObj);
+      this.updateCardOrd(oldListEl, oldListObj);
+      cardObj.set('list_id', newListId);
+      cardObj.save({});      
+      newListObj.cards().add(cardObj);
+      this.updateCardOrd(newListObj);
+    } else {
+      this.updateCardOrd(oldListObj)
     }
-
   },
   
+  makeCardsSortable: function () {
+    $('.cards').sortable({
+      connectWith: '.cards',
+      tolerance: 'intersect',
+      start: function (event, ui) {
+        ui.item.toggleClass('dragged');
+      },
+      stop: function (event, ui) {
+        ui.item.toggleClass('dragged');
+      }
+    });
+  },
   
-  // cardsSortable: function () {
- //    var view = this;
- //
- //    this.$(".cards").sortable({
- //      connectWith: ".cards",
- //      tolerance: "intersect",
- //      // placeholder: true,
- //
- //      start: function (event, ui) {
- //        $(ui.item).addClass('dragged');
- //      },
- //
- //      stop: function (event, ui) {
- //        $(ui.item).removeClass('dragged');
- //      },
- //
- //      update: function (event, ui) {
- //        var cardDiv = ui.item;
- //        var newListId = cardDiv.closest('.list').data('id');
- //        var cardId = cardDiv.data('id');
- //        var lists = view.model.lists().models;
- //        var card, oldList, newList;
- //
- //        view.model.lists().each( function (list) {
- //          if (list.cards().get(cardId)) {
- //            oldList = list;
- //            card = list.cards().get(cardId);
- //          }
- //
- //          if (list.get('id') === newListId) {
- //            newList = list;
- //          }
- //        });
- //
- //        oldList.cards().remove(card, { silent: true });
- //        newList.cards().add(card, { silent: true });
- //
- //        //saves to db then saves to backbone view on success
- //        card.save({ list_id: newListId } , {
- //          success: function () {
- //            view.updateCardOrd(newListId)
- //          }
- //        });
- //      },
- //    })
- //  },
+  updateCardOrd: function (listObj) {
+    var board = this
+    listObj.cards().each(function (card, index) {
+      // if the ord and visible index are different, set and save the card.
+      if (card.get('ord') !== index + 1) {
+        card.set('ord', index + 1);
+        card.save({id: cardId});
+      }
+    })
+  },
   
+  showGlyphicon: function () {
+    $(event.target).children('.delete-button').show();
+  },
+  
+  hideGlyphicon: function () {
+    $(event.target).children('.delete-button').hide();
+  },
   
   render: function () {
     var renderedContent = this.template({model: this.model});
     this.$el.html(renderedContent);
-    // var sortedSubviews = this.subviews()
-    console.log("rendered")
-    
     this.attachSubviews();
-    this.makeListsSortable();    
+    this.makeListsSortable();
+    this.makeCardsSortable();
     
     return this;
   }  

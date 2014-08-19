@@ -6,8 +6,7 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
   
   events: {
     "click button#delete_list" : "destroyList",
-    "click .card"              : 'openModal',
-    "sortupdate .card"         : "updateCardOrd"
+    "click .card"              : 'openModal'
     // "click .glyphicon-remove"  : "removeCard"
     
   },
@@ -18,7 +17,7 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
     this.listenTo(this.model.cards(), "add", this.addCard);
     this.listenTo(this.model.cards(), "remove", this.removeCard);
     
-    var newCardView = new TrelloClone.Views.CardForm({ list: this.model });
+    var newCardView = new TrelloClone.Views.CardNew({ list: this.model });
     this.addSubview(".card-new", newCardView);
     this.model.cards().each(this.addCard.bind(this));
   },
@@ -56,32 +55,6 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
     event.preventDefault();
     this.model.destroy();
   },
-
-  makeCardsSortable: function () {
-    $('.cards').sortable({
-      connectWith: '.cards',
-      tolerance: 'intersect',
-      start: function (event, ui) {
-        ui.item.toggleClass('dragged');
-      },
-      stop: function (event, ui) {
-        ui.item.toggleClass('dragged');
-      }
-    });
-  },
-  
-  updateCardOrd: function () {
-    var list = this;
-    _.each($('.card'), function (card, index) {
-      var cardId = $(card).data('id');
-      var cardObj = list.model.cards().get(cardId);
-      // if the ord and visible index are different, set and save the card.
-      if (cardObj.get('ord') !== index + 1) {
-        cardObj.set('ord', index + 1);
-        cardObj.save({});
-      }
-    })
-  },
   
   openModal: function (event) {
     event.preventDefault();
@@ -97,7 +70,6 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
     //setting data-id to list.id
     this.$el.attr("data-id", this.model.id )    
     this.attachSubviews();
-    this.makeCardsSortable();
     return this;
   }
 });

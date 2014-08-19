@@ -23,6 +23,17 @@
         <% else %>
           <li><%= link_to "Log in", new_session_url %></li>
           <li><%= link_to "Sign up", new_user_url %></li>
+    <!--start guest sign in -->
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <input type="hidden" name="user[email]" value="guest@guest.com">
+          <input type="hidden" name="user[password]" value="wootguest">
+          <button 
+            type="submit" 
+            class="btn btn-warning navbar-btn"
+            id="user_login">
+            Log in as Guest
+          </button>
+    <!--end guest sign in -->
       <% end %>
     </ul>
   </div>

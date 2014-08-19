@@ -1,8 +1,8 @@
-TrelloClone.Views.CardForm = Backbone.View.extend({
+TrelloClone.Views.CardNew = Backbone.View.extend({
   template: JST['card/new_card_form'],
   
   events: {
-    "submit form" : "createCard"
+    "blur form" : "createCard"
   },
   
   initialize: function (options) {

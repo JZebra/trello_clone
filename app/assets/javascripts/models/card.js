@@ -1,4 +1,9 @@
 TrelloClone.Models.Card = Backbone.Model.extend({
-  url: '/api/cards/'
+  urlRoot: '/api/cards/',
   
+  validate: function(attrs, options) {
+    if (attrs.title == "") {
+      return "title can't be blank"
+    }
+  }
 });

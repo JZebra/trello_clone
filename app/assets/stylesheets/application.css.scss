@@ -60,6 +60,9 @@ body {
       color: $clouds;
     };
   }
+  #user_login {
+    position: absolute;
+  }
 }
 
 div {
@@ -72,7 +75,4 @@ div {
 
 .form-control {
   margin: 0 0 4px 0;
-}
-
-form .sign-up .sign-in {
 }
