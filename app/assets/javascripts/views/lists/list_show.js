@@ -5,10 +5,9 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
   className: "list",
   
   events: {
-    "click button#delete_list" : "destroyList",
-    "click .card"              : 'openModal'
-    // "click .glyphicon-remove"  : "removeCard"
-    
+    "click button#delete_list"   : "destroyList",
+    "dblclick h4"                : "beginEditing",
+    "blur h4"                    : "endEditing"
   },
   
   initialize: function (options) {
@@ -22,21 +21,28 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
     this.model.cards().each(this.addCard.bind(this));
   },
    
-  // beginEditing: function () {
-  //   this.open = true;
-  //   this.render();
-  // },
-  //
-  // endEditing: function (event) {
-  //   event.preventDefault();
-  //   this.open = false;
-  //
-  //   var params = $(event.currentTarget).serializeJSON();
-  //   this.model.set(params["list"]);
-  //   this.model.save();
-  //
-  //   this.render();
-  // },
+  beginEditing: function (event) {
+    event.preventDefault();
+    var $currentTarget = $(event.currentTarget);
+    var title = $currentTarget.data('title');
+    var $input = $("<input class='edit-input'>");
+
+    $input.data('field', title);
+    $input.val(this.model.escape(title));
+    $currentTarget.removeClass('editable');
+    $currentTarget.html($input);
+    $input.focus();
+  },
+
+  endEditing: function (event) {
+    event.preventDefault();
+    var field = $(event.currentTarget).data('title');
+    var newTitle = event.target.value
+
+    var params = $(event.currentTarget).serializeJSON();
+    this.model.save({ title: newTitle });
+    this.render();
+  },
   
   addCard: function (card) {
     var cardView = new TrelloClone.Views.Card({ model: card });

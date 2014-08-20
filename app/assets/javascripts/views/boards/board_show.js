@@ -2,7 +2,6 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
   template: JST["board/board_show"],
   
   events: {
-    "dblclick h3"                : "beginEditing",
     "submit form"                : "endEditing",
     "sortupdate .lists"          : "updateListOrd",
     "sortupdate .cards"          : "updateCardLocation",

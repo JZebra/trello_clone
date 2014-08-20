@@ -26,12 +26,6 @@ $asbestos: #7f8c8d;
   }
 }
 
-//.list-placeholder {
-//  background-color: $asbestos;
-//  width: 200px;
-//  height: 320px;
-//}
-
 .dragged {
   transform: rotate(9deg);
 }
@@ -50,16 +44,10 @@ $asbestos: #7f8c8d;
   }
 }
 
-//.card-placeholder {
-//  background-color: $asbestos;
-//  width: 175px;
-//  height: 32px;
-//}
-
 .new-list-form {
   .btn {
     display: none;
-//    Jquery in view toggles the display on input field focus
+//    Jquery in bb view toggles the display on input field focus
   }
 }
 
