@@ -30,24 +30,10 @@ $asbestos: #7f8c8d;
   transform: rotate(9deg);
 }
 
-.card {
-  background-color: white;
-  span {
-    display: none;
-  }
-  &:hover {
-    background: aliceblue;
-    span {
-      display: inline;
-      color: $dark-purple;
-    }
-  }
-}
-
 .new-list-form {
   .btn {
     display: none;
-//    Jquery in bb view toggles the display on input field focus
+    //    Jquery in bb view toggles the display on input field focus
   }
 }
 
@@ -61,10 +47,21 @@ $asbestos: #7f8c8d;
   color: $asbestos;
   padding: 5px 5px;
   margin: 5px 0px;
+  background-color: white;
+  span {
+    display: none;
+  }
+  &:hover {
+    background: aliceblue;
+    span {
+      display: inline;
+      color: $dark-purple;
+    }
+  }
 }
 
 .card-title {
- padding: 0;
+  padding: 0;
 }
 
 .card-delete {

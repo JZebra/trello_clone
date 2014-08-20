@@ -62,14 +62,6 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
     this.model.destroy();
   },
   
-  openModal: function (event) {
-    event.preventDefault();
-    var id = $(event.target).attr('data-id');
-    var card = this.model.cards().get(id)
-    var editModal = new TrelloClone.Views.CardModal({ model: card });
-    this.addSubview(".edit-modal", editModal)
-  },
-  
   render: function () {
     var renderedContent = this.template()({ list: this.model });
     this.$el.html(renderedContent);

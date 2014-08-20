@@ -22,16 +22,15 @@ module Api
       end
     end
     
-    def show
+    def destroy
       @card = Card.find(params[:id])
-      render json: @card
+      if @card.destroy
+        render json: {}
+      else
+        render json: @card.errors.full_messages, status: :unprocessable_entity
+      end
     end
     
-    def index
-      @cards = Card.all
-      render json: @cards
-    end
-
     private
 
     def current_list
