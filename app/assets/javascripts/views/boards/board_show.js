@@ -2,16 +2,13 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
   template: JST["board/board_show"],
   
   events: {
-    "submit form"                : "endEditing",
-    "sortupdate .lists"          : "updateListOrd",
-    "sortupdate .cards"          : "updateCardLocation",
-    // "mouseenter .list, .card"    : "showGlyphicon",
-    // "mouseleave .list, .card"    : "hideGlyphicon"
+    // "sortupdate .lists"          : "updateListOrd",
+    // "sortupdate .cards"          : "updateCardLocation",
   },
   
   initialize: function () {
     this.listenTo(this.model, "sync change", this.render);
-    this.listenTo(this.model.lists(), "sync", this.model.lists().sort);
+    this.listenTo(this.model.lists(), "sync reset sort change", this.render);
     this.listenTo(this.model.lists(), "remove", this.removeList);
     this.listenTo(this.model.lists(), "add", this.addList);
     
@@ -39,6 +36,8 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     $('.lists').sortable({
       connectWith: '.lists',
       tolerance: 'intersect',
+      
+      //dragged class adds rotation styling
       start: function (event, ui) {
         ui.item.toggleClass('dragged');
       },
@@ -62,35 +61,9 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     })
   },
   
-  updateCardLocation: function (event, ui) {
-    var board = this;
-    // get destination list model
-    var newListId = ui.item.closest('.list').data('id');
-    var newListObj = this.model.lists().get(newListId);
-    
-    // get origin list model
-    var oldListId = $(event.target).parent().data('id');
-    var oldListObj = this.model.lists().get(oldListId);
-    
-    // get card model
-    var cardId = $(event.toElement).data('id')
-    var cardObj = oldListObj.cards().get(cardId)
-    
-    // if the card moved lists, delete the entry from the old list and add it to the new one. Else, update the ord in the list. 
-    if (newListId !== oldListId) {
-      // error: cannot read property 'cards' of undefined ??
-      oldListObj.cards().remove(cardObj);
-      this.updateCardOrd(oldListEl, oldListObj);
-      cardObj.set('list_id', newListId);
-      cardObj.save({});      
-      newListObj.cards().add(cardObj);
-      this.updateCardOrd(newListObj);
-    } else {
-      this.updateCardOrd(oldListObj)
-    }
-  },
-  
   makeCardsSortable: function () {
+    var that = this;
+    
     $('.cards').sortable({
       connectWith: '.cards',
       tolerance: 'intersect',
@@ -103,32 +76,55 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     });
   },
   
-  updateCardOrd: function (listObj) {
-    var board = this
+  saveOrds: function (obj) {
+    debugger;
+    
+    
     listObj.cards().each(function (card, index) {
       // if the ord and visible index are different, set and save the card.
       if (card.get('ord') !== index + 1) {
         card.set('ord', index + 1);
-        card.save({id: cardId});
+        card.save({});
       }
     })
   },
   
-  showGlyphicon: function () {
-    $(event.target).children('.delete-button').show();
+  updateCardLocation: function (event, ui) {
+    // get destination list model
+    var newListId = ui.item.closest('.list').data('id');
+    var newListObj = this.model.lists().get(newListId);
+
+    // get origin list model
+    var oldListId = $(event.target).parent().data('id');
+    var oldListObj = this.model.lists().get(oldListId);
+
+    // get card model
+    var cardId = $(event.toElement).data('id')
+    var cardObj = oldListObj.cards().get(cardId)
+
+    // if the card moved lists, delete the entry from the old list and add it to the new one. Else, update the ord in the list.
+    if (newListId !== oldListId) {
+      oldListObj.cards().remove(cardObj);
+      this.saveOrds(oldListObj);
+      cardObj.set('list_id', newListId);
+      cardObj.save({});
+      newListObj.cards().add(cardObj);
+      this.updateCardOrd(newListObj);
+    } else {
+      this.updateCardOrd(oldListObj)
+    }
+    
+    this.render();
   },
-  
-  hideGlyphicon: function () {
-    $(event.target).children('.delete-button').hide();
-  },
-  
+
   render: function () {
     var renderedContent = this.template({model: this.model});
+    console.log('rendered board')
     this.$el.html(renderedContent);
+  
     this.attachSubviews();
     this.makeListsSortable();
-    this.makeCardsSortable();
-    
+    this.makeCardsSortable();  
     return this;
   }  
 });

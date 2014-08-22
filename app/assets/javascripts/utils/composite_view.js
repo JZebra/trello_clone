@@ -23,7 +23,6 @@ Backbone.CompositeView = Backbone.View.extend({
       });
     });
   },
-  
 
   remove: function () {
     Backbone.View.prototype.remove.call(this);
@@ -43,8 +42,6 @@ Backbone.CompositeView = Backbone.View.extend({
 
   subviews: function (selector) {
     // Map of selectors to subviews that live inside that selector.
-    // Optionally pass a selector and I'll initialize/return an array
-    // of subviews for the sel.
     this._subviews = this._subviews || {};
 
     if (!selector) {

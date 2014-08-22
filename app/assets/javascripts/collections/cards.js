@@ -9,8 +9,8 @@ TrelloClone.Collections.Cards = Backbone.Collection.extend({
   
   getOrFetch: function (id) {
     var cards = this;
-    
     var card = this.get(id);
+    
     if (card) {
       card.fetch();
     } else {
@@ -19,6 +19,7 @@ TrelloClone.Collections.Cards = Backbone.Collection.extend({
         success: function () { cards.add(card); }
       });
     }
+    
     return card;
   }  
 });

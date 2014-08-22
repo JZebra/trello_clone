@@ -16,7 +16,7 @@ TrelloClone.Views.Card = Backbone.CompositeView.extend({
     var renderedContent = this.template()({ card: this.model });
     this.$el.html(renderedContent);
     // set the data-id of the card for ord checking
-    this.$el.attr("data-id", this.model.id )    
+    this.$el.attr("data-card-id", this.model.id )    
     return this;
   }
 });

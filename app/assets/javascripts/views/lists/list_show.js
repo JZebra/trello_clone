@@ -1,26 +1,27 @@
 TrelloClone.Views.List = Backbone.CompositeView.extend({
-  template: function () {
-    return this.open ? JST['list/list_edit'] : JST['list/list_show'];
-  },
+  template: JST['list/list_show'],
   className: "list",
   
   events: {
     "click button#delete_list"   : "destroyList",
     "dblclick h4"                : "beginEditing",
-    "blur h4"                    : "endEditing"
+    "blur h4"                    : "endEditing",
+    "sortreceive"                : "receiveCard",
+    "sortremove"                 : "removeCard",
+    "sortstop"                   : "saveCards"
   },
   
   initialize: function (options) {
-    this.open = false;
-    this.listenTo(this.model.cards(), "sync", this.render);
+    this.listenTo(this.model, 'sync', this.render);
+    this.listenTo(this.model.cards(), "sync reset sort change", this.render);
     this.listenTo(this.model.cards(), "add", this.addCard);
-    this.listenTo(this.model.cards(), "remove", this.removeCard);
     
     var newCardView = new TrelloClone.Views.CardNew({ list: this.model });
     this.addSubview(".card-new", newCardView);
     this.model.cards().each(this.addCard.bind(this));
   },
-   
+  
+  //Allows the list title to be editable on dblclick 
   beginEditing: function (event) {
     event.preventDefault();
     var $currentTarget = $(event.currentTarget);
@@ -49,12 +50,9 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
     this.addSubview('.cards', cardView);
   },
   
-  removeCard: function (card) {
-    var view = _.find(this.subviews('.cards'), function(view2) {
-      return view2.model.id == card.id;      
-    })
-    this.removeSubview('.cards', view);
-    this.render();
+  // removes a card from the DOM and the collection
+  removeCard: function (event, ui) {
+    
   },
   
   destroyList: function (event) {
@@ -63,10 +61,10 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
   },
   
   render: function () {
-    var renderedContent = this.template()({ list: this.model });
+    var renderedContent = this.template({ list: this.model });
     this.$el.html(renderedContent);
-    //setting data-id to list.id
-    this.$el.attr("data-id", this.model.id )    
+    this.$el.attr("data-list-id", this.model.id )    
+    
     this.attachSubviews();
     return this;
   }
