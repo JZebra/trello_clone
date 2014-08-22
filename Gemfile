@@ -10,7 +10,6 @@ gem 'jquery-ui-rails'
 gem 'jbuilder', '~> 1.2'
 gem 'rails', '4.0.2'
 gem 'sass-rails', '~> 4.0.0'
-gem 'sqlite3'
 gem 'uglifier', '>= 1.3.0'
 gem 'serialize_json-rails'
 gem 'jquery-ui-rails'
@@ -20,6 +19,7 @@ group :doc do
 end
 
 group :development do
+  gem 'sqlite3'
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -27,3 +27,7 @@ group :development do
   gem 'debugger'
 end
 
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end

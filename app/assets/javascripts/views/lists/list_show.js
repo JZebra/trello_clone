@@ -52,7 +52,7 @@ TrelloClone.Views.List = Backbone.CompositeView.extend({
   
   // removes a card from the DOM and the collection
   removeCard: function (event, ui) {
-    
+    debugger;
   },
   
   destroyList: function (event) {
