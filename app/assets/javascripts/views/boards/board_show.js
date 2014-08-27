@@ -2,14 +2,13 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
   template: JST["board/board_show"],
   
   events: {
-    // "sortupdate .lists"          : "updateListOrd",
-    // "sortupdate .cards"          : "updateCardLocation",
+    "sortupdate .lists"          : "saveLists",
   },
   
   initialize: function () {
-    this.listenTo(this.model, "sync change", this.render);
-    this.listenTo(this.model.lists(), "sync reset sort change", this.render);
+    this.listenTo(this.model, "sync", this.render);
     this.listenTo(this.model.lists(), "remove", this.removeList);
+    this.listenTo(this.model.lists(), "sync", this.makeCardsSortable);
     this.listenTo(this.model.lists(), "add", this.addList);
     
     var newListView = new TrelloClone.Views.NewList({board: this.model});
@@ -47,20 +46,6 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     });
   },
   
-  // Change list order in board
-  updateListOrd: function (event, ui) {
-    var board = this;
-    _.each($('.list'), function (list, index) {
-      var listId = $(list).data('id');
-      var listObj = board.model.lists().get(listId);
-      // if the ord and visible index are different, set and save the list.
-      if (listObj.get('ord') !== index + 1) {
-        listObj.set('ord', index + 1);
-        listObj.save({});
-      }
-    })
-  },
-  
   makeCardsSortable: function () {
     var that = this;
     
@@ -76,50 +61,37 @@ TrelloClone.Views.Board = Backbone.CompositeView.extend({
     });
   },
   
-  saveOrds: function (obj) {
-    debugger;
-    
-    
-    listObj.cards().each(function (card, index) {
-      // if the ord and visible index are different, set and save the card.
-      if (card.get('ord') !== index + 1) {
-        card.set('ord', index + 1);
-        card.save({});
+  // Change list order in board
+  updateListOrd: function (event, ui) {
+    var board = this;
+    _.each($('.list'), function (list, index) {
+      var listId = $(list).data('id');
+      var listObj = board.model.lists().get(listId);
+      // if the ord and visible index are different, set and save the list.
+      if (listObj.get('ord') !== index + 1) {
+        listObj.set('ord', index + 1);
+        listObj.save({});
       }
     })
   },
   
-  updateCardLocation: function (event, ui) {
-    // get destination list model
-    var newListId = ui.item.closest('.list').data('id');
-    var newListObj = this.model.lists().get(newListId);
-
-    // get origin list model
-    var oldListId = $(event.target).parent().data('id');
-    var oldListObj = this.model.lists().get(oldListId);
-
-    // get card model
-    var cardId = $(event.toElement).data('id')
-    var cardObj = oldListObj.cards().get(cardId)
-
-    // if the card moved lists, delete the entry from the old list and add it to the new one. Else, update the ord in the list.
-    if (newListId !== oldListId) {
-      oldListObj.cards().remove(cardObj);
-      this.saveOrds(oldListObj);
-      cardObj.set('list_id', newListId);
-      cardObj.save({});
-      newListObj.cards().add(cardObj);
-      this.updateCardOrd(newListObj);
-    } else {
-      this.updateCardOrd(oldListObj)
-    }
-    
-    this.render();
+  saveLists: function(event) {
+    event.stopPropagation();
+    var listEls = this.$('.list'),
+        collection = this.model.lists();
+    listEls.each(function(index, el) {
+      var $listElement = $(el),
+          listId = $listElement.data('list-id');
+      var list = collection.get(listId);
+      if (list.get('ord') === index) {
+        return;
+      }
+      list.save({ ord: index });
+    }.bind(this));
   },
 
   render: function () {
     var renderedContent = this.template({model: this.model});
-    console.log('rendered board')
     this.$el.html(renderedContent);
   
     this.attachSubviews();

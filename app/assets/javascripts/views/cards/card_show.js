@@ -10,6 +10,7 @@ TrelloClone.Views.Card = Backbone.CompositeView.extend({
   destroyCard: function (event) {
     event.preventDefault();
     this.model.destroy();
+    this.$el.remove();
   },
   
   render: function () {

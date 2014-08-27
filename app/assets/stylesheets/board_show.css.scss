@@ -41,6 +41,11 @@ $asbestos: #7f8c8d;
   background-color: $highlighted;
 }
 
+.cards {
+  min-height: 2em;
+  margin-bottom: 1em;
+}
+
 .card {
   font-size: 14px;
   background: white;
