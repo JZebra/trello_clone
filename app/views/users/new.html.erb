@@ -1,11 +1,17 @@
-<form class='sign-up col-sm-4' action="/users" method="post">
-  <h1>Sign Up</h1>
+<form class="sign-in col-sm-3 col-sm-offset-3" action="/users" method="post">
+  <h2>Sign Up</h2>
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <label>Email<br>
-    <input class='form-control' name="user[email]" type="text"><br>
-  </label><br>
-  <label>Password<br>
-    <input class='form-control' name="user[password]" type="password"><br>
-  </label><br>
-  <input type="submit" value="Submit" class="btn btn-primary"><br>
+  <label for="email">Email</label>
+    <input 
+    class='form-control' 
+    name="user[email]" 
+    type="text"
+    id='password'>
+  <label for="password">Password</label>
+    <input 
+    class='form-control' 
+    name="user[password]" 
+    type="password"
+    id="password">
+  <input type="submit" value="Submit" class="btn btn-primary">
 </form>

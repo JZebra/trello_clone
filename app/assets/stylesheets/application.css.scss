@@ -34,6 +34,9 @@ body {
 .navbar-default {
   background-color: $dark-purple;
   border-color: $dark-purple;
+  .navbar-right {
+    padding-right: 9em;
+  }
   .navbar-brand {
     color: $clouds;
     font-size: 18pt;
